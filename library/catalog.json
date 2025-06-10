@@ -1,0 +1,14 @@
+[
+  {
+    "title": "The Republic",
+    "author": "Plato",
+    "keywords": ["philosophy", "justice", "state"],
+    "path": "library/philosophy/plato_republic.pdf"
+  },
+  {
+    "title": "Relativity: A Primer",
+    "author": "Albert Einstein",
+    "keywords": ["physics", "relativity", "space-time"],
+    "path": "library/science/relativity_primer.pdf"
+  }
+]

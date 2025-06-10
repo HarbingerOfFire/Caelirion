@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Caelirion Library</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: sans-serif; padding: 1em; background: #fafafa; }
+    input { width: 100%; padding: 0.6em; font-size: 1.1em; margin-bottom: 1em; }
+    .result { background: white; padding: 1em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 6px; }
+    .highlight { background: yellow; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>📚 Caelirion Searchable Catalog</h1>
+  <input type="text" id="search" placeholder="Search by title, author, or keyword..." />
+  <div id="results">Loading metadata...</div>
+
+  <script>
+    const catalogUrl = 'library/catalog.json';
+    let catalog = [];
+
+    function highlight(text, query) {
+      const re = new RegExp(`(${query})`, 'gi');
+      return text.replace(re, '<span class="highlight">$1</span>');
+    }
+
+    function searchCatalog(query) {
+      query = query.toLowerCase();
+      const resultsEl = document.getElementById('results');
+      resultsEl.innerHTML = '';
+
+      const results = catalog.filter(entry => {
+        return (
+          entry.title.toLowerCase().includes(query) ||
+          entry.author.toLowerCase().includes(query) ||
+          (entry.keywords && entry.keywords.some(k => k.toLowerCase().includes(query)))
+        );
+      });
+
+      if (results.length === 0) {
+        resultsEl.textContent = 'No results found.';
+        return;
+      }
+
+      for (const entry of results) {
+        const div = document.createElement('div');
+        div.className = 'result';
+        div.innerHTML = `
+          <h3>${highlight(entry.title, query)}</h3>
+          <p><strong>Author:</strong> ${highlight(entry.author, query)}</p>
+          <p><strong>Keywords:</strong> ${entry.keywords.map(k => highlight(k, query)).join(', ')}</p>
+          <a href="${entry.path}" target="_blank">Open PDF</a>
+        `;
+        resultsEl.appendChild(div);
+      }
+    }
+
+    async function loadCatalog() {
+      try {
+        const res = await fetch(catalogUrl);
+        catalog = await res.json();
+        document.getElementById('results').textContent = 'Catalog loaded. Start typing to search.';
+      } catch (e) {
+        document.getElementById('results').textContent = 'Failed to load catalog.';
+        console.error(e);
+      }
+    }
+
+    document.getElementById('search').addEventListener('input', (e) => {
+      const q = e.target.value.trim();
+      if (q.length < 2) {
+        document.getElementById('results').textContent = 'Enter at least 2 characters.';
+        return;
+      }
+      searchCatalog(q);
+    });
+
+    loadCatalog();
+  </script>
+</body>
+</html>
