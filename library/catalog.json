@@ -2,13 +2,15 @@
   {
     "title": "The Republic",
     "author": "Plato",
-    "keywords": ["philosophy", "justice", "state"],
-    "path": "library/philosophy/plato_republic.pdf"
+    "section": "philosophy",
+    "keywords": ["justice", "state"],
+    "path": "library/philosophy/republic.pdf"
   },
   {
-    "title": "Relativity: A Primer",
-    "author": "Albert Einstein",
-    "keywords": ["physics", "relativity", "space-time"],
-    "path": "library/science/relativity_primer.pdf"
+    "title": "Book of Enoch",
+    "author": "Unknown",
+    "section": "apocrypha",
+    "keywords": ["angelology", "eschatology"],
+    "path": "library/apocrypha/enoch.pdf"
   }
 ]
