@@ -47,7 +47,7 @@ def extract_metadata_from_filename(path):
     rel = path.relative_to(LIBRARY_DIR)
     section = rel.parts[0].lower()
     filename = rel.name
-    match = re.match(r"(.+)_([^_]+)\\.pdf$", filename)
+    match = re.match(r"(.+?)_([^_]+)\.pdf$", filename)
     if not match:
         print(f"Filename does not match pattern: {filename}")
         return None
