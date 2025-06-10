@@ -25,7 +25,7 @@
   </select>
 
   <label for="search">Search Title, Author, or Keywords:</label>
-  <input type="text" id="search" placeholder="e.g., Plato, justice, angels..." />
+  <input type="text" id="search"/>
 
   <div id="results">Loading catalog...</div>
 
@@ -66,7 +66,7 @@
           <p><strong>Author:</strong> ${highlight(entry.author, q)}</p>
           <p><strong>Section:</strong> ${entry.section}</p>
           <p><strong>Keywords:</strong> ${entry.keywords.map(k => highlight(k, q)).join(', ')}</p>
-          <a href="${entry.path}" target="_blank">📄 Open PDF</a>
+          <a href="${entry.path}" target="_blank">Open PDF</a>
         `;
         resultsEl.appendChild(div);
       }
