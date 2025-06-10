@@ -1,5 +1,8 @@
 name: Update Catalog
 
+permissions:
+  contents: write
+
 on:
   push:
     paths:
@@ -34,4 +37,4 @@ jobs:
         git config --global user.email 'actions@github.com'
         git add library/catalog.json
         git commit -m 'Auto-update catalog.json' || echo "No changes to commit"
-        git push
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
